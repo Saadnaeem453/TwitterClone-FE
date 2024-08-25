@@ -18,8 +18,7 @@ const SignUp = () => {
 	
 
 	const { mutate, isError, isPending, error } = useSignUpMutation();
-	// daadf
-	// DFasda
+
 
 
 	const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
