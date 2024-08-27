@@ -7,7 +7,7 @@ export default function ClientProvider({
 }: {
   children: React.ReactNode;
 }) {
-  return <QueryClientProvider client={queryClient}>
+  return <QueryClientProvider client={queryClient} >
     {children}
     </QueryClientProvider>;
 }

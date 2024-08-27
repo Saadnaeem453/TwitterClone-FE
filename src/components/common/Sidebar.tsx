@@ -1,4 +1,4 @@
-
+"use client"
 import { MdHomeFilled } from "react-icons/md";
 import { IoNotifications } from "react-icons/io5";
 import { FaUser } from "react-icons/fa";
@@ -6,15 +6,24 @@ import { BiLogOut } from "react-icons/bi";
 import XSvg from "../Svgs/X";
 import Link from "next/link";
 import Image from "next/image";
+import { useLogOutMutation } from "@/hooks/useLogOutMutation";
+import { useGetMe } from "@/hooks/useGetMe";
 
 const Sidebar = () => {
+	const { data: authUser, isLoading } = useGetMe();
+	const{mutate:logout, error, isError, isPending} = useLogOutMutation();
 	const data = {
 		fullName: "John Doe",
 		username: "johndoe",
 		profileImg: "/avatars/boy1.png",
 	};
-
+	if(!authUser){
+		return null
+	}
+	
 	return (
+		<>
+		
 		<div className='md:flex-[2_2_0] w-18 max-w-52'>
 			<div className='sticky top-0 left-0 h-screen flex flex-col border-r border-gray-700 w-20 md:w-full'>
 				<Link href='/' className='flex justify-center md:justify-start'>
@@ -26,7 +35,7 @@ const Sidebar = () => {
 							href='/'
 							className='flex gap-3 items-center hover:bg-stone-900 transition-all rounded-full duration-300 py-2 pl-2 pr-4 max-w-fit cursor-pointer'
 						>
-							<MdHomeFilled className='w-8 h-8' />
+							<MdHomeFilled className='w-7 h-7' />
 							<span className='text-lg hidden md:block'>Home</span>
 						</Link>
 					</li>
@@ -65,12 +74,24 @@ const Sidebar = () => {
 								<p className='text-white font-bold text-sm w-20 truncate'>{data?.fullName}</p>
 								<p className='text-slate-500 text-sm'>@{data?.username}</p>
 							</div>
-							<BiLogOut className='w-5 h-5 cursor-pointer' />
+							
+							<BiLogOut className='w-5 h-5 cursor-pointer' 
+						onClick={(e)=>
+						{
+							e.preventDefault()
+							logout();
+						}
+							
+							}
+										/>
 						</div>
 					</Link>
+						
+
 				)}
 			</div>
 		</div>
+		</>
 	);
 };
 export default Sidebar;

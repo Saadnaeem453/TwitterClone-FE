@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
-
+import { useRouter } from "next/navigation";
 interface SignUpProps {
     email: string;
     username: string;
@@ -9,6 +9,7 @@ interface SignUpProps {
 }
 
 export const useSignUpMutation = () => {
+    const router = useRouter();
     const queryClient = useQueryClient();
 
     const signUp = async ({ email, username, fullname, password }: SignUpProps) => {
@@ -37,6 +38,7 @@ export const useSignUpMutation = () => {
         onSuccess: () => {
             toast.success("Account created successfully");
             queryClient.invalidateQueries({ queryKey: ["authUser"] });
+            router.push("/")
         }
     });
 

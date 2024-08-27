@@ -1,12 +1,14 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import toast from "react-hot-toast";
+import { useRouter } from 'next/navigation'
 
+import toast from "react-hot-toast";
 interface LoginProps{ 
     username: string;
     password: string;
 
 }
 export const useLoginMutation=()=> {
+    const router = useRouter();
     const queryClient = useQueryClient();
     const Login = async({username , password}:LoginProps)=>{
         try {
@@ -29,9 +31,9 @@ export const useLoginMutation=()=> {
         mutationFn: Login,
         onSuccess:()=>{
             toast.success("Login successfully");
-
-queryClient.invalidateQueries({queryKey:["authUser"]})
-        }
+            queryClient.invalidateQueries({queryKey:["authUser"]})
+            router.push('/')
+        },
     });
     return {mutate, isError, isPending, error};
 

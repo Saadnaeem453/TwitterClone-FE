@@ -15,7 +15,7 @@ const SignUp = () => {
 		username:"",
 		password: "",
 	});
-	// /hihih
+	
 
 	const { mutate, isError, isPending, error } = useSignUpMutation();
 
@@ -88,7 +88,7 @@ const SignUp = () => {
 						/>
 					</label>
 					<button className='btn rounded-full btn-primary text-white'>{isPending ? "Loading.." : "Sign up "} </button>
-					{isError && <p className='text-red-500'>Something went wrong</p>}
+					{isError && <p className='text-red-500'>{error?.message}</p>}
 				</form>
 				<div className='flex flex-col lg:w-2/3 gap-2 mt-4'>
 					<p className='text-white text-lg'>Already have an account?</p>

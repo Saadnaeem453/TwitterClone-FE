@@ -3,10 +3,15 @@ import { USERS_FOR_RIGHT_PANEL } from "../../utils/db/dummy";
 import Link from "next/link";
 import RightPanelSkeleton from "../skeletons/RightPanelSkeleton";
 import Image from "next/image"
+import { useGetMe } from "@/hooks/useGetMe";
 const RightPanel = () => {
-	const isLoading = false;
+	const { data: authUser, isLoading } = useGetMe();
 
+if(!authUser){
+	return null
+}
 	return (
+		<>
 		<div className='hidden lg:block my-4 mx-2'>
 			<div className='bg-[#16181C] p-4 rounded-md sticky top-2'>
 				<p className='font-bold'>Who to follow</p>
@@ -52,7 +57,9 @@ const RightPanel = () => {
 						))}
 				</div>
 			</div>
-		</div>
+		</div> 
+	
+		</>
 	);
 };
 export default RightPanel;
