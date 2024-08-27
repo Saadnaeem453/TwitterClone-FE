@@ -13,7 +13,7 @@ const Sidebar = () => {
 	const { data: authUser, isLoading } = useGetMe();
 	const{mutate:logout, error, isError, isPending} = useLogOutMutation();
 	const data = {
-		fullName: "John Doe Jutt",
+		fullName: "John Doe ",
 		username: "johndoe",
 		profileImg: "/avatars/boy1.png",
 	};
